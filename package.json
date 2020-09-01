@@ -1,0 +1,20 @@
+{
+  "name": "ably-midi-player",
+  "version": "1.0.0",
+  "private": "true",
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "server": "yarn workspace server start",
+    "client": "yarn workspace client start",
+    "build-server": "yarn workspace server build",
+    "build-client": "yarn workspace client build",
+    "heroku-postbuild": "yarn run build-server && yarn run build-client"
+  },
+  "dependencies": {
+    "@types/react-router-dom": "^5.1.5",
+    "react-router-dom": "^5.2.0"
+  }
+}
