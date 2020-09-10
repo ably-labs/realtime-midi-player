@@ -1,17 +1,12 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import styled from 'styled-components';
+import JoinButton from '@material-ui/icons/ExitToApp';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
 
 type ChannelOptionProps = {
   channelId: string;
 };
-
-const JoinButton = styled.button`
-  border: none;
-  border-radius: 25%;
-  padding: 0.5em;
-  margin-left: 1em;
-`;
 
 const ChannelOption = ({ channelId }: ChannelOptionProps) => {
   const history = useHistory();
@@ -22,8 +17,12 @@ const ChannelOption = ({ channelId }: ChannelOptionProps) => {
 
   return (
     <>
-      <span>{`${channelId}'s Jam`}</span>
-      <JoinButton onClick={handleClick}>Join in</JoinButton>
+      <Typography variant="subtitle2">
+        {`${channelId}'s Jam`}
+        <IconButton onClick={handleClick}>
+          <JoinButton />
+        </IconButton>
+      </Typography>
     </>
   );
 };
