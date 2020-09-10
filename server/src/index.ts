@@ -33,7 +33,7 @@ app.get('/api/createEnumerationTokenRequest', async (request, response) => {
   response.send(tokenRequestData);
 });
 
-app.get('/api/createChannelToken', async (request, response) => {
+app.get('/api/createChannelTokenRequest', async (request, response) => {
   const channel = request.query.channelId;
   if (typeof channel !== 'string') {
     response.sendStatus(400);
