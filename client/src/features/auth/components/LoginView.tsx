@@ -1,10 +1,10 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { loginAction } from '../redux/authSlice';
 import styled from 'styled-components';
 import { enumerateChannelsAction } from 'features/channel/redux/channelSlice';
 import ChannelPicker from 'features/channel/components/ChannelPicker';
 import { useHistory } from 'react-router-dom';
+import Container from '@material-ui/core/Container';
 
 const SubmitButton = styled.button`
   border: none;
@@ -38,7 +38,6 @@ const LoginView = () => {
 
   const handleSubmit = () => {
     history.push(`/jam/${name}`);
-    // dispatch(loginAction(name));
   };
 
   const handleNameChange = (evt: ChangeEvent<HTMLInputElement>) => {
@@ -46,13 +45,13 @@ const LoginView = () => {
   };
 
   return (
-    <ViewContainer>
+    <Container style={{ border: '1px solid black' }}>
       <NameInput autoFocus placeholder="Name" onChange={handleNameChange} value={name}></NameInput>
       <SubmitButton type="submit" onClick={handleSubmit} disabled={name === ''}>
         Start Jamming!
       </SubmitButton>
       <ChannelPicker />
-    </ViewContainer>
+    </Container>
   );
 };
 

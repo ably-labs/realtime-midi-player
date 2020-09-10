@@ -2,14 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import { Provider } from 'react-redux';
-import App from './App';
+import App from 'app/App';
 import { store } from './app/store';
 import * as serviceWorker from './serviceWorker';
+import { ThemeProvider, createMuiTheme } from '@material-ui/core';
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <ThemeProvider theme={createMuiTheme()}>
+        <App />
+      </ThemeProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'),
