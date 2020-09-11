@@ -104,6 +104,10 @@ const createAblyMiddleware = () => {
             const note = noteNumber % 12;
             synth.triggerAttackRelease(scaleIndexToNote[note] + octave.toString(), '8n');
           }
+          const timeoutId = setTimeout(() => {
+            api.dispatch(presenceActions.unregisterActivity({ timeoutId, clientId: evt.clientId }));
+          }, 5000);
+          api.dispatch(presenceActions.registerActivity({ timeoutId, clientId: evt.clientId }));
         });
 
         WebMidi.enable((err) => {

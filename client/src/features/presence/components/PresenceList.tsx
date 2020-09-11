@@ -37,8 +37,8 @@ const PresenceList = () => {
     <Paper className={classes.paper}>
       <Typography>Online:</Typography>
       <List>
-        {members.map(({ name, clientId, mute }) => (
-          <ListItem style={{ color: mute ? 'lightgray' : 'initial' }} key={clientId}>
+        {members.map(({ name, clientId, mute, active }) => (
+          <ListItem style={{ color: mute ? 'grey' : active ? 'green' : 'initial' }} key={clientId}>
             <ListItemText>{name}</ListItemText>
             <ListItemSecondaryActon>
               <IconButton onClick={() => handleMute(clientId)}>
