@@ -1,33 +1,30 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
 import { selectMembers } from '../redux/presenceSelectors';
 import { presenceActions } from '../redux/presenceSlice';
+import Typography from '@material-ui/core/Typography';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemSecondaryActon from '@material-ui/core/ListItemSecondaryAction';
+import IconButton from '@material-ui/core/IconButton';
+import MutedIcon from '@material-ui/icons/VolumeOff';
+import UnmutedIcon from '@material-ui/icons/VolumeUp';
+import Paper from '@material-ui/core/Paper';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 
-const Container = styled.div`
-  padding: 1em;
-  width: 15vw;
-`;
-
-const List = styled.ul`
-  list-style-type: none;
-  padding-inline-start: 0;
-`;
-
-const ListItem = styled.li`
-  margin-bottom: 0.5em;
-`;
-
-const MuteButton = styled.button`
-  border: none;
-  border-radius: 25%;
-  padding: 0.5em;
-  margin-left: 0.5em;
-`;
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    margin: theme.spacing(3),
+    padding: theme.spacing(3),
+    width: '16rem',
+  },
+}));
 
 const PresenceList = () => {
   const members = useSelector(selectMembers);
   const dispatch = useDispatch();
+  const classes = useStyles();
 
   const handleMute = useCallback(
     (clientId) => {
@@ -37,17 +34,24 @@ const PresenceList = () => {
   );
 
   return (
-    <Container>
-      <h4>Online:</h4>
+    <Paper className={classes.paper}>
+      <Typography>Online:</Typography>
       <List>
-        {members.map(({ name, clientId, mute }) => (
-          <ListItem style={{ color: mute ? 'lightgray' : 'initial' }} key={clientId}>
-            {name}
-            <MuteButton onClick={() => handleMute(clientId)}>{mute ? 'Unmute' : 'Mute'}</MuteButton>
+        {members.map(({ name, clientId, mute, active }) => (
+          <ListItem
+            style={{ color: mute ? 'grey' : active ? '#0FB17E' : 'initial' }}
+            key={clientId}
+          >
+            <ListItemText>{name}</ListItemText>
+            <ListItemSecondaryActon>
+              <IconButton onClick={() => handleMute(clientId)}>
+                {mute ? <MutedIcon /> : <UnmutedIcon />}
+              </IconButton>
+            </ListItemSecondaryActon>
           </ListItem>
         ))}
       </List>
-    </Container>
+    </Paper>
   );
 };
 

@@ -1,7 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 type PresenceState = {
-  members: Array<{ clientId: string; name: string; mute: boolean }>;
+  members: Array<{
+    clientId: string;
+    name: string;
+    mute: boolean;
+    active: boolean;
+    timeoutId?: string;
+  }>;
 };
 
 const initialState: PresenceState = {
@@ -17,7 +23,7 @@ const presenceSlice = createSlice({
     },
     addMember: (state, action) => {
       const { clientId, name, mute } = action.payload;
-      state.members.push({ clientId, name, mute });
+      state.members.push({ clientId, name, mute, active: false });
     },
     removeMember: (state, action) => {
       state.members.filter((member) => member.clientId !== action.payload);
@@ -28,6 +34,22 @@ const presenceSlice = createSlice({
       );
       if (targetMember !== undefined) {
         targetMember.mute = !targetMember?.mute;
+      }
+    },
+    registerActivity: (state, action) => {
+      const { clientId, timeoutId } = action.payload;
+      const member = state.members.find((member) => clientId === member.clientId);
+      if (member) {
+        member.active = true;
+        member.timeoutId = timeoutId;
+      }
+    },
+    unregisterActivity: (state, action) => {
+      const { clientId, timeoutId } = action.payload;
+      const member = state.members.find((member) => clientId === member.clientId);
+      if (member && member.timeoutId === timeoutId) {
+        member.active = false;
+        member.timeoutId = undefined;
       }
     },
   },
