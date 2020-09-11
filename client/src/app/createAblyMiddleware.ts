@@ -111,7 +111,9 @@ const createAblyMiddleware = () => {
         });
 
         WebMidi.enable((err) => {
-          if (err) throw err;
+          if (err) {
+            console.warn('Web MIDI is not available in your browser.');
+          }
           if (!WebMidi.inputs[0]) {
           } else {
             const input = WebMidi.getInputById(WebMidi.inputs[0].id);

@@ -38,7 +38,10 @@ const PresenceList = () => {
       <Typography>Online:</Typography>
       <List>
         {members.map(({ name, clientId, mute, active }) => (
-          <ListItem style={{ color: mute ? 'grey' : active ? 'green' : 'initial' }} key={clientId}>
+          <ListItem
+            style={{ color: mute ? 'grey' : active ? '#0FB17E' : 'initial' }}
+            key={clientId}
+          >
             <ListItemText>{name}</ListItemText>
             <ListItemSecondaryActon>
               <IconButton onClick={() => handleMute(clientId)}>
