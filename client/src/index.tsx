@@ -10,7 +10,18 @@ import { ThemeProvider, createMuiTheme } from '@material-ui/core';
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ThemeProvider theme={createMuiTheme()}>
+      <ThemeProvider
+        theme={createMuiTheme({
+          palette: {
+            primary: {
+              main: '#808080',
+            },
+            background: {
+              paper: '#9595951a',
+            },
+          },
+        })}
+      >
         <App />
       </ThemeProvider>
     </Provider>

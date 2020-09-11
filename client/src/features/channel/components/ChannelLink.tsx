@@ -1,35 +1,44 @@
 import React from 'react';
-import TextInput from 'shared/TextInput';
-import styled from 'styled-components';
+import Typography from '@material-ui/core/Typography';
+import CopyIcon from '@material-ui/icons/FileCopy';
+import IconButton from '@material-ui/core/IconButton';
+import Paper from '@material-ui/core/Paper';
+import Box from '@material-ui/core/Box';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import TextInput from '@material-ui/core/Input';
 
-const Container = styled.div`
-  width: 60%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 2em;
-  margin-bottom: 2em;
-`;
-
-const CopyButton = styled.button`
-  border: none;
-  border-radius: 25%;
-  padding: 1em;
-`;
+const useStyles = makeStyles((theme) => ({
+  box: {
+    width: '60%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: theme.spacing(3),
+  },
+  paper: {
+    padding: theme.spacing(1),
+    paddingRight: theme.spacing(4),
+    paddingLeft: theme.spacing(4),
+  },
+}));
 
 const ChannelLink = () => {
+  const classes = useStyles();
+
   const handleClick = async () => {
     await navigator.clipboard.writeText(window.location.href);
   };
 
   return (
-    <Container>
-      <span>Copy this link to invite your friends:</span>
+    <Box className={classes.box}>
+      <Typography variant="subtitle2">Copy this link to invite your friends:</Typography>
       <div>
         <TextInput readOnly value={window.location.href} />
-        <CopyButton onClick={handleClick}>Copy</CopyButton>
+        <IconButton onClick={handleClick}>
+          <CopyIcon />
+        </IconButton>
       </div>
-    </Container>
+    </Box>
   );
 };
 
