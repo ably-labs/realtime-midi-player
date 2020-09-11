@@ -3,15 +3,12 @@ import { useDispatch } from 'react-redux';
 import { sendNote } from '../redux/keyboardActions';
 import { ControlledPiano, MidiNumbers, KeyboardShortcuts } from 'react-piano';
 import 'react-piano/dist/styles.css';
-import Box from '@material-ui/core/Box';
+import './customPianoStyles.css';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import './customPianoStyles.css';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import PlusIcon from '@material-ui/icons/Add';
-import MinusIcon from '@material-ui/icons/Remove';
+import Modifiers from './Modifiers';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -22,6 +19,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundBlendMode: 'multiply,multiply',
     marginTop: '6rem',
   },
+  upperGrid: { height: '4em', display: 'flex', justifyContent: 'flex-end' },
+  modifierGrid: { display: 'flex', flexDirection: 'column', justifyContent: 'center' },
 }));
 
 const PianoKeyboard = () => {
@@ -49,16 +48,14 @@ const PianoKeyboard = () => {
   return (
     <Paper className={classes.paper}>
       <Grid container>
-        <Grid item xs={12} style={{ height: '4em', display: 'flex', justifyContent: 'flex-end' }}>
+        <Grid item xs={12} className={classes.upperGrid}>
           <Typography variant="h6">
             <b>M-Ably</b> | Keystation Mini 32
           </Typography>
         </Grid>
-        <Grid
-          item
-          style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
-          xs={1}
-        ></Grid>
+        <Grid item className={classes.modifierGrid} xs={1}>
+          <Modifiers />
+        </Grid>
         <Grid item xs={11}>
           <ControlledPiano
             activeNotes={activeNotes}

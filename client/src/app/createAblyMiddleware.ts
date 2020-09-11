@@ -9,6 +9,7 @@ import WebMidi from 'webmidi';
 import { selectMemberIsMuted } from 'features/presence/redux/presenceSelectors';
 import { channelActions, enumerateChannelsAction } from 'features/channel/redux/channelSlice';
 import { selectName } from 'features/auth/redux/authSelectors';
+import { selectOctave, selectTranspose } from 'features/keyboard/redux/keyboardSelectors';
 
 const createAblyMiddleware = () => {
   let channel: Types.RealtimeChannelPromise;
@@ -123,7 +124,12 @@ const createAblyMiddleware = () => {
     }
 
     if (sendNote.match(action)) {
-      channel.publish('note', { noteNumber: action.payload.noteNumber });
+      const transpose = selectTranspose(api.getState());
+      const octave = selectOctave(api.getState());
+
+      const noteNumber = action.payload.noteNumber + transpose + 12 * octave;
+
+      channel.publish('note', { noteNumber });
     }
 
     return next(action);
