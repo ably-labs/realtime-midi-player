@@ -1,3 +1,6 @@
+> [!IMPORTANT]
+> This project is no longer being maintained as of March 2026.
+
 ## Running Locally
 
 This project uses yarn workspaces to manage scripts and dependencies. If you do not have yarn installed you can install it by running
